@@ -1,6 +1,5 @@
 from asyncio.windows_events import NULL
 from random import *
-from re import I
 
 from soupsieve import select
 from Party import *
@@ -46,7 +45,6 @@ def join(party): # Function for Participating Party
         if using_table_size6 == 2: # All size6 tables are using
             out_table_number = select_table(6) # which size table will be empty
             using_table_size6 -= 1
-            print(using_table_size6)
             remove(table_list_size6[out_table_number].party) # make empty this table
         else:
             for i in range(2): # search which table is empty (size6)
@@ -56,15 +54,14 @@ def join(party): # Function for Participating Party
                     print("{0}번 파티 그룹이 6-{1}번 테이블이 착석.".\
                     format(party.party_number, table_list_size6[i].table_number))
                     using_table_size6 += 1
-                    print(using_table_size6)
                     waiting_list.pop(0)
                     break
 
     elif party.party_size <= 4:
         if using_table_size4 == 4: # All size4 tables are using
+            print("여기{0}".format(using_table_size4))
             out_table_number = select_table(4) # which table will be empty
             using_table_size4 -= 1
-            print(using_table_size4)
             remove(table_list_size4[out_table_number].party) # make empty this table
         else:
             for i in range(4): # Search which table is empty 
@@ -74,7 +71,6 @@ def join(party): # Function for Participating Party
                     print("{0}번 파티 그룹이 4-{1}번 테이블이 착석.".\
                     format(table_list_size4[i].party.party_number, table_list_size4[i].table_number))
                     using_table_size4 += 1
-                    print(using_table_size4)
                     waiting_list.pop(0)
                     break
 
@@ -89,20 +85,16 @@ def remove(party): # Function for Leaving the party
     if party.party_size > 4:
         for i in range(len(table_list_size6)):
             if table_list_size6[i].party.party_number == party.party_number:
-                table_list_size6[i].table_left()
                 print("{0}번 파티가 6-{1}번 테이블에서 나감."\
                     .format(party.party_number, table_list_size6[i].table_number))
-                using_table_size6 -= 1
-                print(using_table_size6)
+                table_list_size6[i].table_left()
                 break
     elif party.party_size <= 4:
         for i in range(len(table_list_size4)):
             if table_list_size4[i].party.party_number == party.party_number:
-                table_list_size4[i].table_left()
                 print("{0}번 파티가 4-{1}번 테이블에서 나감."\
                     .format(party.party_number, table_list_size4[i].table_number))
-                using_table_size4 -= 1
-                print(using_table_size4)
+                table_list_size4[i].table_left()
                 break
 
 def check_table_availability(tableSize):

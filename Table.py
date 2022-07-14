@@ -15,4 +15,4 @@ class Table:
         self.party.party_size = 0
         self.party.party_number = 0
         self.party.waiting = True
-        self.table_availability = False
+        self.table_availability = True
